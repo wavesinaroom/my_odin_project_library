@@ -37,8 +37,3 @@ function displayBooks(){
 
   });
 }
-
-addBookToLibrary("Gabo Márquez", "Cien años de soledad", 460, false);
-addBookToLibrary("Steven King", "The stand", 500, true);
-addBookToLibrary("Anne Rice", "The claiming of sleeping beauty", 380, false);
-displayBooks();
