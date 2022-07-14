@@ -58,24 +58,29 @@ function createBookFromForm(){
   documentBody.removeChild(initDiv);
 
   let inputForm = document.createElement('form');
-  inputForm.id = "input-form";
+  inputForm.id = "inputForm";
 
   let inputAuthor = document.createElement('input');
+  inputAuthor.id = "inputAuthor";
   inputAuthor.placeholder = "Type in book author";
 
   let inputTitle = document.createElement('input');
+  inputTitle.id = "inputTitle";
   inputTitle.placeholder = "Type in book title";
 
   let inputPageNumber = document.createElement('input');
   inputPageNumber.placeholder = "Enter book page number";
+  inputPageNumber.id = "inputPageNumber";
 
   let inputReadDiv = document.createElement('div');
   let inputReadLabel = document.createElement('label');
   inputReadLabel.textContent = "Did you read the book?";
   let inputReadYes = document.createElement('input');
   inputReadYes.type = "radio";
+  inputReadYes.id = "inputReadYes";
   let inputReadNo = document.createElement('input');
   inputReadNo.type = "radio";
+  inputReadNo.id = "inputReadNo";
 
   let inputSubmit = document.createElement('button');
   inputSubmit.type = "submit";
@@ -96,9 +101,24 @@ function createBookFromForm(){
 
 function submitForm(){
 
-  addBookToLibrary();
-  documentBody.removeChild(input-form);
-  Init();
+  let author = document.getElementById("inputAuthor").textContent;
+  let title = document.getElementById("inputTitle").textContent;
+  let pageNumber = parseInt(document.getElementById("inputPageNumber").textContent);
+  let isRead;
+
+  if (document.getElementById("inputReadYes").checked===true&&document.getElementById("inputReadNo").checked===false)
+    isRead = true;
+  else if (document.getElementById("inputReadNo").checked===true&&document.getElementById("inputReadYes").checked===false)
+    isRead = false;
+  else{
+    documentBody.removeChild(inputForm);
+    Init();
+    alert("Book couldn't be created");
+  }
+
+  addBookToLibrary(author, title, pageNumber,isRead);
+  documentBody.removeChild(inputForm);
+
 }
 
 Init();
