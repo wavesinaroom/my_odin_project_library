@@ -1,5 +1,9 @@
 let documentBody = document.body;
 let myLibrary = [];
+let newBookButtonDiv = document.getElementById("new-book-div");
+let newBookButton = document.getElementById("new-book-button");
+newBookButton.addEventListener("click", createBookFromForm);
+
 
 function Book (author, title, pageNumber, read)
 {
@@ -36,4 +40,11 @@ function displayBooks(){
     div.appendChild(pRead);
 
   });
+}
+
+function createBookFromForm(){
+  newBookButtonDiv.style.visibility = "hidden";
+  alert("working");
+
+
 }
