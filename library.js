@@ -1,11 +1,20 @@
 let documentBody = document.body;
 let myLibrary = [];
 
-let newBookButtonDiv = document.getElementById("new-book-div");
-let newBookButton = document.getElementById("new-book-button");
-newBookButton.addEventListener("click", createBookFromForm);
+function Init()
+{
+  let newBookButtonDiv = document.createElement('div');
+  newBookButtonDiv.id = "initDiv";
+  let newBookButton = document.createElement('button');
+  newBookButton.addEventListener("click", createBookFromForm);
+  newBookButton.textContent = "New book";
+  let newBookButtonLabel = document.createElement('label');
+  newBookButtonLabel.textContent = "Click on the button to create a new book"
 
-
+  documentBody.appendChild(newBookButtonDiv);
+  newBookButtonDiv.appendChild(newBookButtonLabel);
+  newBookButtonDiv.appendChild(newBookButton);
+}
 
 function Book (author, title, pageNumber, read)
 {
@@ -45,7 +54,8 @@ function displayBooks(){
 }
 
 function createBookFromForm(){
-  newBookButtonDiv.style.visibility = "hidden";
+
+  documentBody.removeChild(initDiv);
 
   let inputForm = document.createElement('form');
   inputForm.id = "input-form";
@@ -88,5 +98,7 @@ function submitForm(){
 
   addBookToLibrary();
   documentBody.removeChild(input-form);
-  newBookButtonDiv.style.visibility = "visible";
+  Init();
 }
+
+Init();
