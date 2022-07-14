@@ -44,7 +44,37 @@ function displayBooks(){
 
 function createBookFromForm(){
   newBookButtonDiv.style.visibility = "hidden";
-  alert("working");
+  let inputForm = document.createElement('form');
 
+  let inputAuthor = document.createElement('input');
+  inputAuthor.placeholder = "Type in book author";
+
+  let inputTitle = document.createElement('input');
+  inputTitle.placeholder = "Type in book title";
+
+  let inputPageNumber = document.createElement('input');
+  inputPageNumber.placeholder = "Enter book page number";
+
+  let inputReadDiv = document.createElement('div');
+  let inputReadLabel = document.createElement('label');
+  inputReadLabel.textContent = "Did you read the book?";
+  let inputReadYes = document.createElement('input');
+  inputReadYes.type = "radio";
+  let inputReadNo = document.createElement('input');
+  inputReadNo.type = "radio";
+
+  let inputSubmit = document.createElement('button');
+  inputSubmit.type = "submit";
+  inputSubmit.textContent = "Add book";
+
+  documentBody.appendChild(inputForm);
+  inputForm.appendChild(inputAuthor);
+  inputForm.appendChild(inputTitle);
+  inputForm.appendChild(inputPageNumber);
+  inputForm.appendChild(inputReadDiv);
+  inputReadDiv.appendChild(inputReadLabel);
+  inputReadDiv.appendChild(inputReadYes);
+  inputReadDiv.appendChild(inputReadNo);
+  inputForm.appendChild(inputSubmit);
 
 }
