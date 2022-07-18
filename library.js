@@ -1,21 +1,6 @@
 let documentBody = document.body;
 let myLibrary = [];
 
-function Init()
-{
-  let newBookButtonDiv = document.createElement('div');
-  newBookButtonDiv.id = "initDiv";
-  let newBookButton = document.createElement('button');
-  newBookButton.addEventListener("click", createBookFromForm);
-  newBookButton.textContent = "New book";
-  let newBookButtonLabel = document.createElement('label');
-  newBookButtonLabel.textContent = "Click on the button to create a new book"
-
-  documentBody.appendChild(newBookButtonDiv);
-  newBookButtonDiv.appendChild(newBookButtonLabel);
-  newBookButtonDiv.appendChild(newBookButton);
-}
-
 function Book (author, title, pageNumber, read)
 {
   this.author = author;
@@ -28,9 +13,34 @@ function addBookToLibrary(author, title, pageNumber, read) {
   myLibrary.push(new Book(author, title, pageNumber, read));
 }
 
-function displayBooks(){
-  myLibrary.forEach(function(book) {
+function Init()
+{
+  let mainMenuDiv = document.createElement('div');
+  mainMenuDiv.id = "initDiv";
 
+  let mainMenuTitle = document.createElement('h2');
+  mainMenuTitle.textContent = "Welcome to the Usaquen library";
+
+  let newBookButton = document.createElement('button');
+  newBookButton.addEventListener("click", createBookFromForm);
+  newBookButton.textContent = "New Book";
+
+  let removeBookButton = document.createElement('button');
+  removeBookButton.addEventListener("click", displayBooks);
+  removeBookButton.textContent = "Remove Book";
+
+  documentBody.appendChild(mainMenuDiv);
+  mainMenuDiv.appendChild(mainMenuTitle);
+  mainMenuDiv.appendChild(newBookButton);
+  mainMenuDiv.appendChild(removeBookButton);
+}
+
+
+function displayBooks(){
+
+  documentBody.removeChild(initDiv);
+
+  myLibrary.forEach(function(book) {
     let div = document.createElement('div');
     let pAuthor = document.createElement('p');
     let pTitle = document.createElement('p');
@@ -40,7 +50,7 @@ function displayBooks(){
     pAuthor.textContent += book.author;
     pTitle.textContent += book.title;
     pPageNumber.textContent += book.pageNumber;
-    pRead.textContent += book.pRead;
+    pRead.textContent = book.read.toString();
 
     div.id = "Book";
 
@@ -76,11 +86,8 @@ function createBookFromForm(){
   let inputReadLabel = document.createElement('label');
   inputReadLabel.textContent = "Did you read the book?";
   let inputReadYes = document.createElement('input');
-  inputReadYes.type = "radio";
-  inputReadYes.id = "inputReadYes";
-  let inputReadNo = document.createElement('input');
-  inputReadNo.type = "radio";
-  inputReadNo.id = "inputReadNo";
+  inputReadYes.type = "checkbox";
+  inputReadYes.id = "inputIsRead";
 
   let inputSubmit = document.createElement('button');
   inputSubmit.type = "submit";
@@ -94,31 +101,20 @@ function createBookFromForm(){
   inputForm.appendChild(inputReadDiv);
   inputReadDiv.appendChild(inputReadLabel);
   inputReadDiv.appendChild(inputReadYes);
-  inputReadDiv.appendChild(inputReadNo);
   inputForm.appendChild(inputSubmit);
 
 }
 
 function submitForm(){
+    const author = document.getElementById("inputAuthor").value;
+    const title = document.getElementById("inputTitle").value;
+    const pageNumber = document.getElementById("inputPageNumber").value;
+    const isRead = document.getElementById("inputIsRead").checked;
 
-  let author = document.getElementById("inputAuthor").textContent;
-  let title = document.getElementById("inputTitle").textContent;
-  let pageNumber = parseInt(document.getElementById("inputPageNumber").textContent);
-  let isRead;
+    addBookToLibrary(author, title, pageNumber,isRead);
 
-  if (document.getElementById("inputReadYes").checked===true&&document.getElementById("inputReadNo").checked===false)
-    isRead = true;
-  else if (document.getElementById("inputReadNo").checked===true&&document.getElementById("inputReadYes").checked===false)
-    isRead = false;
-  else{
-    documentBody.removeChild(inputForm);
-    Init();
-    alert("Book couldn't be created");
-  }
-
-  addBookToLibrary(author, title, pageNumber,isRead);
   documentBody.removeChild(inputForm);
-
+  Init();
 }
 
 Init();
