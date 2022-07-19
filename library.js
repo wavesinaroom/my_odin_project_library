@@ -1,16 +1,18 @@
 let documentBody = document.body;
 let myLibrary = [];
+let globalBookNumber = 1;
 
-function Book (author, title, pageNumber, read)
+function Book (author, title, pageNumber, read, bookNumber)
 {
   this.author = author;
   this.title = title;
   this.pageNumber = pageNumber;
   this.read = read;
+  this.bookNumber = bookNumber;
 }
 
-function addBookToLibrary(author, title, pageNumber, read) {
-  myLibrary.push(new Book(author, title, pageNumber, read));
+function addBookToLibrary(author, title, pageNumber, read, bookNumber) {
+  myLibrary.push(new Book(author, title, pageNumber, read, bookNumber));
 }
 
 function Init()
@@ -40,27 +42,39 @@ function displayBooks(){
 
   documentBody.removeChild(initDiv);
 
+  let libraryDiv = document.createElement('div');
+  documentBody.appendChild(libraryDiv);
+
   myLibrary.forEach(function(book) {
-    let div = document.createElement('div');
+    let bookDiv = document.createElement('bookDiv');
+    bookDiv.id = "Book";
+
     let pAuthor = document.createElement('p');
     let pTitle = document.createElement('p');
     let pPageNumber = document.createElement('p');
     let pRead = document.createElement('p');
+    let deleteBookButton = document.createElement('button');
 
     pAuthor.textContent += book.author;
     pTitle.textContent += book.title;
     pPageNumber.textContent += book.pageNumber;
     pRead.textContent = book.read.toString();
+    deleteBookButton.textContent = "Delete Book";
 
-    div.id = "Book";
+    deleteBookButton.addEventListener("click",()=>{
+      myLibrary.splice(book.bookNumber-1, 1);
+      documentBody.removeChild(libraryDiv);
+      Init();
+    });
 
-    documentBody.appendChild(div);
-    div.appendChild(pAuthor);
-    div.appendChild(pTitle);
-    div.appendChild(pPageNumber);
-    div.appendChild(pRead);
-
+    libraryDiv.appendChild(bookDiv);
+    libraryDiv.appendChild(deleteBookButton);
+    libraryDiv.appendChild(pAuthor);
+    libraryDiv.appendChild(pTitle);
+    libraryDiv.appendChild(pPageNumber);
+    libraryDiv.appendChild(pRead);
   });
+
 }
 
 function createBookFromForm(){
@@ -111,8 +125,8 @@ function submitForm(){
     const pageNumber = document.getElementById("inputPageNumber").value;
     const isRead = document.getElementById("inputIsRead").checked;
 
-    addBookToLibrary(author, title, pageNumber,isRead);
-
+    addBookToLibrary(author, title, pageNumber,isRead, globalBookNumber);
+    ++globalBookNumber;
   documentBody.removeChild(inputForm);
   Init();
 }
