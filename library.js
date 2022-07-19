@@ -52,14 +52,24 @@ function displayBooks(){
     let pAuthor = document.createElement('p');
     let pTitle = document.createElement('p');
     let pPageNumber = document.createElement('p');
-    let pRead = document.createElement('p');
+    let pRead = document.createElement('input');
+    pRead.type="checkbox";
     let deleteBookButton = document.createElement('button');
 
     pAuthor.textContent += book.author;
     pTitle.textContent += book.title;
     pPageNumber.textContent += book.pageNumber;
-    pRead.textContent = book.read.toString();
+    pRead.checked = book.read.checked;
     deleteBookButton.textContent = "Delete Book";
+
+    pRead.addEventListener("change", ()=>{
+      if(pRead.checked == true)
+      {
+        book.read = false;
+      }else{
+        book.read = true;
+      }
+    });
 
     deleteBookButton.addEventListener("click",()=>{
       myLibrary.splice(book.bookNumber-1, 1);
