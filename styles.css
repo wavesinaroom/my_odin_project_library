@@ -1,4 +1,32 @@
-body
-{
-  background-color: red;
+*{
+  font-family: "Advent Pro",monospace,sans-serif, courier;
+  font-size: 16px;
+  color: #ff9700;
+}
+body{
+  background-color: #27272A;
+}
+
+button{
+  margin: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 35px;
+  padding-left: 35px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}
+
+button:active{
+  transform: scale(95%);
+  background-color: #E2E8F0;
+  color: black;
+}
+
+input{
+  font-family: "Advent Pro",monospace,sans-serif, courier;
+  font-size: 16px;
+  color: #ff9700;
 }
